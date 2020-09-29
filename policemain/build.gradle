@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+    defaultConfig {
+        applicationId "com.dark_yx.policemain"
+        minSdkVersion 19
+        //noinspection OldTargetApi
+        targetSdkVersion 26
+        multiDexEnabled true
+        versionCode 3
+        versionName "1.0.1"
+//        jackOptions {
+//            enabled true
+//        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries = true
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation project(':wallpaperpick')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    //noinspection GradleDependency
+    implementation 'com.google.android.gms:play-services-appindexing:8.1.0'
+    implementation project(':policemain.common')
+    implementation project(path: ':uploadlib')
+    implementation('io.socket:socket.io-client:0.7.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
+    implementation files('libs/woogeenbase.jar')
+    implementation files('libs/woogeenp2p.jar')
+    implementation 'com.github.hotchemi:permissionsdispatcher:2.3.1'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
+    implementation files('libs/basic-http-client-android-0.88.jar')
+    implementation files('libs/parallel-basic-http-client.jar')
+    implementation files('libs/signala_long.jar')
+    implementation files('libs/signala.jar')
+    implementation 'com.cpiz.bubbleview:bubbleview:1.0.2'
+    //noinspection GradleDynamicVersion
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    implementation files('libs/hwsdk-mdm-openapi-2.0.0.jar')
+    implementation files('libs/newabel_nfc_sdk-1.0.jar')
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    annotationProcessor 'com.jakewharton:butterknife:7.0.1'
+    implementation('com.yanzhenjie.permission:support:2.0.1') {
+        exclude group: 'com.android.support'
+    }
+}

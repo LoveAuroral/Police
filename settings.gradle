@@ -1,0 +1,3 @@
+include ':policemain', ':policemain.common',
+        ':library', ':mybrowser', ':wallpaperpick', ':uploadlib'
+rootProject.name = 'policemain'

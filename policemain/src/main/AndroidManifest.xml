@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.dark_yx.policemain"
+    android:installLocation="internalOnly">
+
+    <application
+        android:name=".PoliceMainApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/folderhouse"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        tools:replace="android:label,android:name">
+        <activity
+            android:name=".activity.CheckPerimissionActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity android:name=".nfcDemo.NfcMainActivity" />
+        <activity
+            android:name=".audio.AudioMainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".sysVideo.VideoMainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".photo.PhotoActivity.PhotoMainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".phone.PhoneActivity.PhoneMainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!--        <activity-->
+        <!--            android:name=".launcher.launcher3.ToggleWeightWatcher"-->
+        <!--            android:enabled="@bool/debug_memory_enabled"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:icon="@mipmap/ic_launcher_home"-->
+        <!--            android:label="@string/toggle_weight_watcher">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.MAIN" />-->
+
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+        <!--        <activity-->
+        <!--            android:name=".launcher.launcher3.WallpaperPickerActivity"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:finishOnCloseSystemDialogs="true"-->
+        <!--            android:icon="@mipmap/ic_launcher_wallpaper"-->
+        <!--            android:label="@string/pick_wallpaper"-->
+        <!--            android:process=":wallpaper_chooser"-->
+        <!--            android:theme="@style/Theme.WallpaperPicker">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.SET_WALLPAPER" />-->
+
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+        <!--        <activity-->
+        <!--            android:name=".launcher.launcher3.WallpaperCropActivity"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:finishOnCloseSystemDialogs="true"-->
+        <!--            android:icon="@mipmap/ic_launcher_wallpaper"-->
+        <!--            android:label="@string/crop_wallpaper"-->
+        <!--            android:process=":wallpaper_chooser"-->
+        <!--            android:theme="@style/Theme.WallpaperCropper">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.service.wallpaper.CROP_AND_SET_WALLPAPER" />-->
+
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+
+        <!--                <data android:mimeType="image/*" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+        <!--        <activity-->
+        <!--            android:name=".launcher.launcher3.SettingsActivity"-->
+        <!--            android:autoRemoveFromRecents="true"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:label="@string/settings_button_text"-->
+        <!--            android:process=":settings_process" /> &lt;!&ndash; Debugging tools &ndash;&gt;-->
+        <!--        <activity-->
+        <!--            android:name=".launcher.launcher3.MemoryDumpActivity"-->
+        <!--            android:enabled="@bool/debug_memory_enabled"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:icon="@mipmap/ic_launcher_home"-->
+        <!--            android:label="@string/debug_memory_activity"-->
+        <!--            android:theme="@android:style/Theme.NoDisplay">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.MAIN" />-->
+
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+        <!--        <activity-->
+        <!--            android:name=".launcher.launcher3.Launcher"-->
+        <!--            android:clearTaskOnLaunch="true"-->
+        <!--            android:enabled="true"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:launchMode="singleTop"-->
+        <!--            android:resumeWhilePausing="true"-->
+        <!--            android:screenOrientation="portrait"-->
+        <!--            android:stateNotNeeded="true"-->
+        <!--            android:theme="@style/Theme"-->
+        <!--            android:windowSoftInputMode="adjustPan"-->
+        <!--            tools:ignore="UnusedAttribute">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.MAIN" />-->
+        <!--                &lt;!&ndash; 隐藏桌面图标 &ndash;&gt;-->
+        <!--                &lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
+        <!--                <category android:name="android.intent.category.HOME" />-->
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+        <activity
+            android:name=".activity.MainActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /> <!-- Intent received used to install shortcuts from other applications -->
+        <activity
+            android:name=".activity.Videop2pAllActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            android:screenOrientation="portrait" /> <!-- Intent received used to initialize a restored widget -->
+        <activity
+            android:name=".activity.AddChatActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WriteGroupInfoActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            android:screenOrientation="portrait" /> <!-- The settings provider contains Home's data, like the workspace favorites -->
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GroupFriendsActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.GuideActivity" />
+        <activity
+            android:name=".login.view.LoginActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- 隐藏桌面图标 -->
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="application/com.dark_yx.policemain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".chat.view.chatui.ui.activity.ChatActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectGroupFriendsActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chat.view.chatui.ui.activity.WebActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".chat.view.chatui.ui.activity.FullImageActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="android.nfc.disable_beam_default"
+            android:value="true" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="KeTDajAeHncZyNHhxjGtn2QB" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+<!--        <provider-->
+<!--            android:name=".launcher.launcher3.LauncherProvider"-->
+<!--            android:authorities="com.android.launcher3.settings"-->
+<!--            android:exported="true"-->
+<!--            android:readPermission="com.android.launcher3.permission.READ_SETTINGS_2"-->
+<!--            android:writePermission="com.android.launcher3.permission.WRITE_SETTINGS_2" />-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_public" />
+        </provider>
+
+<!--        <receiver android:name=".launcher.launcher3.WallpaperChangedReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.WALLPAPER_CHANGED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <receiver-->
+<!--            android:name=".launcher.launcher3.InstallShortcutReceiver"-->
+<!--            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <receiver android:name=".launcher.launcher3.AppWidgetsRestoredReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <receiver android:name=".launcher.launcher3.StartupReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+        <receiver android:name=".broadCastReceiver.OpenAppReceiverMJ">
+            <intent-filter>
+                <action android:name="ACTION_WORK_MODE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".broadCastReceiver.OpenAppReceiverJZ">
+            <intent-filter>
+                <action android:name="OPEN_APP_RECEIVER_JZ" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".broadCastReceiver.WifiReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".broadCastReceiver.FaceReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.dark_yx.face" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".broadCastReceiver.DeviceReceiver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+        </receiver>
+        <receiver
+            android:name=".broadCastReceiver.ShutDownReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".broadCastReceiver.BootBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".broadCastReceiver.OpenAppReceiverNFC">
+            <intent-filter>
+                <action android:name="OPEN_APP_RECEIVER_NFC" />
+            </intent-filter>
+        </receiver>
+
+<!--        <service-->
+<!--            android:name=".launcher.launcher3.MemoryTracker"-->
+<!--            android:enabled="@bool/debug_memory_enabled" />-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <service
+            android:name=".nfcDemo.CardService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE">
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/aid_list" />
+        </service>
+        <service
+            android:name=".service.ListenCallService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".chat.ChatService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.BaseSationService"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+    <permission
+        android:name="com.android.launcher.permission.INSTALL_SHORTCUT"
+        android:description="@string/permdesc_install_shortcut"
+        android:label="@string/permlab_install_shortcut"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="dangerous" />
+    <permission
+        android:name="com.android.launcher3.permission.READ_SETTINGS_2"
+        android:description="@string/permdesc_read_settings"
+        android:label="@string/permlab_read_settings"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.android.launcher3.permission.WRITE_SETTINGS_2"
+        android:description="@string/permdesc_write_settings"
+        android:label="@string/permlab_write_settings"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="signature" /> <!-- 允许查看使用记录权限 -->
+    <permission
+        android:name="com.android.launcher3.permission.RECEIVE_LAUNCH_BROADCASTS_2"
+        android:protectionLevel="signature" /> <!-- 允许安装未知来源应用 -->
+    <permission
+        android:name="com.android.launcher3.permission.RECEIVE_FIRST_LOAD_BROADCAST_2"
+        android:protectionLevel="signature" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.USE_SIP" />
+    <uses-permission android:name="android.permission.ADD_VOICEMAIL" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- <uses-permission android:name="android.permission.BIND_APPWIDGET" /> -->
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS_2" />
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS_2" />
+    <uses-permission android:name="com.android.launcher3.permission.RECEIVE_LAUNCH_BROADCASTS_2" /> <!-- 禁用/啟用恢復出廠設置 -->
+    <uses-permission android:name="com.android.launcher3.permission.RECEIVE_FIRST_LOAD_BROADCAST_2" /> <!-- kill后台进程的权限 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="com.huawei.permission.sec.MDM" />
+    <uses-permission android:name="com.huawei.permission.sec.MDM_DEVICE_MANAGER" /> <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS" /> -->
+    <!-- <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" /> &lt;!&ndash; 这个权限用于联网 &ndash;&gt; -->
+    <uses-permission android:name="com.huawei.permission.sec.MDM.MDM_APP_MANAGEMENT" /> <!-- 这个权限用于获取网络状态 -->
+    <uses-permission android:name="com.huawei.permission.sec.PERMISSION_MDM_SDCARD" /> <!-- 设置网络状态 -->
+    <!-- <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" /> -->
+    <uses-permission android:name="com.huawei.permission.sec.MDM_PHONE_MANAGER" /> <!-- 这个权限用于录音 -->
+    <uses-permission android:name="com.huawei.permission.sec.MDM_SETTINGS_RESTRICTION" /> <!-- 这个权限用于写数据 -->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" /> <!-- 这个权限用于读取手机状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 这个权限用于拨打电话 -->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" /> <!-- 这个权限用于电话监听 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 此权限用来显示全局对话框对话框 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 此权限用于启用震动硬件 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 这个权限用于照相 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- NFC -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 设置扬声器播放声音 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 改变锁屏 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 用于读取手机当前的状态 -->
+    <!-- <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> &lt;!&ndash; 开机 &ndash;&gt; -->
+    <uses-permission android:name="android.permission.NFC" /> <!-- 杀进程 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- 获取历史记录 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 相机 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 聚焦 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 刷新视图 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- nfc硬件 -->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+</manifest>

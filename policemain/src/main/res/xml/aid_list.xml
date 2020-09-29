@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/service_name"
+    android:requireDeviceUnlock="false">
+    <aid-group
+        android:category="other"
+        android:description="@string/card_aid">
+        <aid-filter android:name="F543216789" />
+        <aid-filter android:name="F555555555" />
+        <aid-filter android:name="F583673820" />
+    </aid-group>
+
+</host-apdu-service>
