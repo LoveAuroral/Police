@@ -6,7 +6,6 @@ import android.content.Context;
 import com.dark_yx.policemaincommon.Models.NoticeBean;
 import com.dark_yx.policemaincommon.Models.User;
 
-
 import org.xutils.common.util.LogUtil;
 import org.xutils.x;
 
@@ -27,8 +26,13 @@ public class DataUtil {
 //    private final static String DEFAULT_BASS_IP = "222.86.157.26:1156";
 //    private final static String DEFAULT_VIDEO_IP = "222.86.157.26:8095";
 
-    private final static String DEFAULT_BASS_IP = "222.87.184.250:1156";
-    private final static String DEFAULT_VIDEO_IP = "222.87.184.250:8095";
+    // 兴义地址
+//    private final static String DEFAULT_BASS_IP = "222.87.184.250:1156";
+//    private final static String DEFAULT_VIDEO_IP = "222.87.184.250:8095";
+
+    private final static String DEFAULT_BASS_IP = "47.104.178.84:8025";
+    private final static String DEFAULT_VIDEO_IP = "47.104.178.84:8095";
+
 
     private final static String IP_1 = "http://";
 
@@ -111,6 +115,7 @@ public class DataUtil {
         SPUtil spUtil = new SPUtil(context, SPUtil.DeviceSettings.DEVICE_SETTINGS);
         return spUtil.getInt(SPUtil.DeviceSettings.CID, 0);
     }
+
     /**
      * 存入关机前所处界面标识
      *
@@ -134,6 +139,7 @@ public class DataUtil {
         LogUtil.d("getActivity: " + activity);
         return activity;
     }
+
     /**
      * 存入相机可用状态
      *

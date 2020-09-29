@@ -789,13 +789,13 @@ public class PhoneInterfaceUtil {
 //        PhoneInterfaceUtil.setAppAsLauncher(admin, packageName, className);//设置app为桌面启动器
         addIgnoreFrequentRelaunchAppList(admin, context);
         PhoneInterfaceUtil.setGoogleBackupRestoreDisabled(admin, true);//禁用 google 的备份和恢复
-        PhoneInterfaceUtil.disDeleteApp(admin, context);//防卸载
+//        PhoneInterfaceUtil.disDeleteApp(admin, context);//防卸载
 //        PhoneInterfaceUtil.setWifiDisable(admin, true);//禁用wifi
         PhoneInterfaceUtil.setSystemUpdateDisabled(admin, true);//禁用系统升级功能
-        PhoneInterfaceUtil.setDevelopmentOptionDisabled(admin, true);//禁止开发人员选项
+        PhoneInterfaceUtil.setDevelopmentOptionDisabled(admin, false);//禁止开发人员选项
         PhoneInterfaceUtil.setFactoryDisabled(admin, true);//禁用恢复出厂设置
-        PhoneInterfaceUtil.setUSBDisabled(admin, true);//禁用 USB 调试模式、数据传输
-        PhoneInterfaceUtil.setAdbDisabled(admin, true);//禁用 ADB 调试模式
+        PhoneInterfaceUtil.setUSBDisabled(admin, false);//禁用 USB 调试模式、数据传输
+        PhoneInterfaceUtil.setAdbDisabled(admin, false);//禁用 ADB 调试模式
 //        PhoneInterfaceUtil.setWifiApDisabled(admin, true);//禁用热点
         PhoneInterfaceUtil.setUserDisabled(admin, true);//禁用 添加多用户
 //        PhoneInterfaceUtil.setBluetoothDisable(admin, true);//禁用蓝牙

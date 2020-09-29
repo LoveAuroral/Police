@@ -311,7 +311,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onStart() {
         super.onStart();
-        PhoneInterfaceUtil.disDeleteApp(mAdminName, this);//防卸载
+//        PhoneInterfaceUtil.disDeleteApp(mAdminName, this);//防卸载
         DataUtil.setActivity(this, "LoginActivity");
     }
 
