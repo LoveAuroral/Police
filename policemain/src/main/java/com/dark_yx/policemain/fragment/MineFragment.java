@@ -26,7 +26,6 @@ import com.dark_yx.policemain.R;
 import com.dark_yx.policemain.broadCastReceiver.DeviceReceiver;
 import com.dark_yx.policemain.fragment.presenter.UsersPhone;
 import com.dark_yx.policemain.login.view.LoginActivity;
-import com.dark_yx.policemain.service.BaseSationService;
 import com.dark_yx.policemain.util.CommonMethod;
 import com.dark_yx.policemain.util.PhoneInterfaceUtil;
 import com.dark_yx.policemain.util.WhiteListUtil;
@@ -150,6 +149,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_vision:
+//                PhoneInterfaceUtil.openInit(
+//                        new ComponentName(getActivity(), DeviceReceiver.class),
+//                        getActivity().getApplicationContext().getPackageName(),
+//                        LoginActivity.class.getCanonicalName(),
+//                        getActivity().getApplicationContext()
+//                );
                 break;
             case R.id.rl_white:
                 Toast.makeText(context, "正在同步白名单", Toast.LENGTH_SHORT).show();
@@ -180,6 +185,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
             case R.id.rl_exit18:
+//                PhoneInterfaceUtil.exitApp(
+//                        getActivity().getApplicationContext(),
+//                        new ComponentName(getActivity(), DeviceReceiver.class)
+//                );
 //                File file = new File(Environment.getExternalStorageDirectory() + "/Police/", "treeUser.txt");
 //                if (file.exists()) {
 //                    Toast.makeText(context, "正在同步电话簿，请稍等", Toast.LENGTH_LONG).show();

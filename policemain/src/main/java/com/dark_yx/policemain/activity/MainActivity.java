@@ -424,7 +424,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onStart() {
         super.onStart();
-        PhoneInterfaceUtil.setBarStatus(mAdminName, false);//启用下拉状态栏
+//        PhoneInterfaceUtil.setBarStatus(mAdminName, false);//启用下拉状态栏
         DataUtil.setActivity(this, "PhoneMainActivity");
         CheckVersionTask task = new CheckVersionTask(this);
         task.start();

@@ -90,6 +90,11 @@ public class PhoneInterfaceUtil {
         manager.setDefaultLauncher(admin, packageName, className);
     }
 
+    public static void clearDefaultLauncher(ComponentName admin) {
+        DeviceControlManager manager = new DeviceControlManager();
+        manager.clearDefaultLauncher(admin);
+    }
+
     /**
      * 启用/禁用wifi
      *
@@ -785,20 +790,21 @@ public class PhoneInterfaceUtil {
         PhoneInterfaceUtil.setUSBTetheringDisabled(admin, true);//禁用/USB 网络共享菜单
         PhoneInterfaceUtil.setHuaweiBeamDisabled(admin, true);//禁用/“设置”菜单中的“huawei beam”
         PhoneInterfaceUtil.setMenuStatus(admin, true);//禁用任务键
-        PhoneInterfaceUtil.setMicrophoneDisabled(admin, true);//设置语音功能禁用
-//        PhoneInterfaceUtil.setAppAsLauncher(admin, packageName, className);//设置app为桌面启动器
+//        PhoneInterfaceUtil.setMicrophoneDisabled(admin, true);//设置语音功能禁用
+        PhoneInterfaceUtil.setAppAsLauncher(admin, packageName, className);//设置app为桌面启动器
         addIgnoreFrequentRelaunchAppList(admin, context);
         PhoneInterfaceUtil.setGoogleBackupRestoreDisabled(admin, true);//禁用 google 的备份和恢复
-//        PhoneInterfaceUtil.disDeleteApp(admin, context);//防卸载
+        PhoneInterfaceUtil.disDeleteApp(admin, context);//防卸载
 //        PhoneInterfaceUtil.setWifiDisable(admin, true);//禁用wifi
         PhoneInterfaceUtil.setSystemUpdateDisabled(admin, true);//禁用系统升级功能
-        PhoneInterfaceUtil.setDevelopmentOptionDisabled(admin, false);//禁止开发人员选项
+        PhoneInterfaceUtil.setDevelopmentOptionDisabled(admin, true);//禁止开发人员选项
         PhoneInterfaceUtil.setFactoryDisabled(admin, true);//禁用恢复出厂设置
-        PhoneInterfaceUtil.setUSBDisabled(admin, false);//禁用 USB 调试模式、数据传输
-        PhoneInterfaceUtil.setAdbDisabled(admin, false);//禁用 ADB 调试模式
+        PhoneInterfaceUtil.setUSBDisabled(admin, true);//禁用 USB 调试模式、数据传输
+        PhoneInterfaceUtil.setAdbDisabled(admin, true);//禁用 ADB 调试模式
 //        PhoneInterfaceUtil.setWifiApDisabled(admin, true);//禁用热点
         PhoneInterfaceUtil.setUserDisabled(admin, true);//禁用 添加多用户
 //        PhoneInterfaceUtil.setBluetoothDisable(admin, true);//禁用蓝牙
+        PhoneInterfaceUtil.setBarStatus(admin, true);//设置下拉状态栏启用
         PhoneInterfaceUtil.setHomedisable(admin, true);//禁用HOME键
         PhoneInterfaceUtil.addPersistentAppRun(admin, context);//添加保持某应用始终运行名单
         LogUtil.d("openInit");
@@ -816,13 +822,13 @@ public class PhoneInterfaceUtil {
         PhoneInterfaceUtil.setDevelopmentOptionDisabled(admin, false);//启用开发人员选项
         PhoneInterfaceUtil.setWifiApDisabled(admin, false);//启用热点
         PhoneInterfaceUtil.setBluetoothDisable(admin, false);//启用蓝牙
-        PhoneInterfaceUtil.setMicrophoneDisabled(admin, false);//设置语音功能启用
+//        PhoneInterfaceUtil.setMicrophoneDisabled(admin, false);//设置语音功能启用
         PhoneInterfaceUtil.removeMdmNumberList(admin);
         PhoneInterfaceUtil.setMenuStatus(admin, false);
         PhoneInterfaceUtil.setBarStatus(admin, false);//设置下拉状态栏启用
         PhoneInterfaceUtil.setHomedisable(admin, false);
         PhoneInterfaceUtil.setSystemAsLauncher(admin);
-//        PhoneInterfaceUtil.setAppAsLauncher(admin, context.getPackageName(), Launcher.class.getCanonicalName());
+        PhoneInterfaceUtil.clearDefaultLauncher(admin);
         LogUtil.d("exitApp");
 
         Intent startMain = new Intent(Intent.ACTION_MAIN);

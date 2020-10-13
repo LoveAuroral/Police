@@ -27,11 +27,11 @@ public class DataUtil {
 //    private final static String DEFAULT_VIDEO_IP = "222.86.157.26:8095";
 
     // 兴义地址
-//    private final static String DEFAULT_BASS_IP = "222.87.184.250:1156";
-//    private final static String DEFAULT_VIDEO_IP = "222.87.184.250:8095";
+    private final static String DEFAULT_BASS_IP = "222.87.184.250:1156";
+    private final static String DEFAULT_VIDEO_IP = "222.87.184.250:8095";
 
-    private final static String DEFAULT_BASS_IP = "47.104.178.84:8025";
-    private final static String DEFAULT_VIDEO_IP = "47.104.178.84:8095";
+//    private final static String DEFAULT_BASS_IP = "47.104.178.84:8025";
+//    private final static String DEFAULT_VIDEO_IP = "47.104.178.84:8095";
 
 
     private final static String IP_1 = "http://";

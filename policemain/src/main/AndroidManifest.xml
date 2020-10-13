@@ -177,8 +177,8 @@
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 隐藏桌面图标 -->
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!--<category android:name="android.intent.category.HOME" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -322,11 +322,9 @@
         <receiver
             android:name=".broadCastReceiver.BootBroadCastReceiver"
             android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </receiver>
@@ -465,7 +463,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 聚焦 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 刷新视图 -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- nfc硬件 -->
+<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> &lt;!&ndash; nfc硬件 &ndash;&gt;-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
