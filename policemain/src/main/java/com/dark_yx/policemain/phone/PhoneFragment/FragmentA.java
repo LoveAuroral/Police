@@ -19,9 +19,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.dark_yx.policemain.R;
 import com.dark_yx.policemain.phone.Adpter.PhoneAdapter;
 import com.dark_yx.policemain.phone.Bean.UsersPhone;
-import com.dark_yx.policemain.R;
 import com.dark_yx.policemaincommon.Models.PrivatePhoneBean;
 import com.dark_yx.policemaincommon.Util.FileUtil;
 import com.google.gson.Gson;
@@ -90,25 +90,40 @@ public class FragmentA extends Fragment {
         File file = new File(Environment.getExternalStorageDirectory() + "/Police/", "treeUser.txt");
         if (file.exists()) {
             phoneJosn = FileUtil.getFile("treeUser.txt");
-            Log.d("phoneJosn=", phoneJosn);
+            Log.d("xulindev", "phoneJosn " + phoneJosn);
             mList = new ArrayList<>();
             UsersPhone usersPhone = new Gson().fromJson(phoneJosn, UsersPhone.class);
-            LogUtil.d("usersPhone--" + usersPhone.getResult().toString());
-            for (int i = 0; i < usersPhone.getResult().get(0).getChildren().size(); i++) {
-                for (int j = 0; j < usersPhone.getResult().get(0).getChildren().get(i).getUsers().size(); j++) {
-                    String name = usersPhone.getResult().get(0).getChildren().get(i).getUsers().get(j).getName();
-                    String phone = usersPhone.getResult().get(0).getChildren().get(i).getUsers().get(j).getLandline();
+            List<UsersPhone.ResultBean.ChildrenBean> children = usersPhone.getResult().get(0).getChildren();
+            Log.d("xulindev", "children-- " + children.toString() + " children size -- " + children.size());
+            for (int i = 0; i < children.size(); i++) {
+                List<UsersPhone.ResultBean.ChildrenBean.UsersBean> users = children.get(i).getUsers();
+                for (int j = 0; j < users.size(); j++) {
+                    UsersPhone.ResultBean.ChildrenBean.UsersBean usersBean = users.get(j);
+                    String name = usersBean.getName();
+                    String phone = usersBean.getLandline();
                     PrivatePhoneBean tb_contacts = new PrivatePhoneBean();
                     tb_contacts.setName(name);
                     tb_contacts.setPhoneNumber(phone);
+                    Log.d("xulindev", "name--" + name + " phone--" + phone);
                     mList.add(tb_contacts);
                 }
+            }
+            List<UsersPhone.ResultBean.UsersBeanX> children2 = usersPhone.getResult().get(0).getUsers();
+            for (int i = 0; i < children2.size(); i++) {
+                UsersPhone.ResultBean.UsersBeanX usersBeanX = children2.get(i);
+                String name = usersBeanX.getName();
+                String phone = usersBeanX.getLandline();
+                PrivatePhoneBean tb_contacts = new PrivatePhoneBean();
+                tb_contacts.setName(name);
+                tb_contacts.setPhoneNumber(phone);
+                Log.d("xulindev", "name--" + name + " phone--" + phone);
+                mList.add(tb_contacts);
             }
         } else {
             Toast.makeText(getContext(), "无所内号码，请同步白名单之后再试", Toast.LENGTH_SHORT).show();
         }
 
-        Log.d("mList", mList.toString());
+        Log.d("xulindev", "mList " + mList.toString());
         setAdapter(null);
     }
 

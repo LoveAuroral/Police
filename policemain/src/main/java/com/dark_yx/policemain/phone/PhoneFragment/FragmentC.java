@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.CallLog;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -18,13 +19,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.dark_yx.policemain.phone.Adpter.PhoneAdapter;
 import com.dark_yx.policemain.R;
+import com.dark_yx.policemain.phone.Adpter.PhoneAdapter;
+import com.dark_yx.policemain.phone.Bean.UsersPhone;
 import com.dark_yx.policemaincommon.Models.MissedPhones;
 import com.dark_yx.policemaincommon.Models.PrivatePhoneBean;
+import com.dark_yx.policemaincommon.Models.PrivatePhoneWhiteResult;
+import com.dark_yx.policemaincommon.Util.FileUtil;
+import com.dark_yx.policemaincommon.Util.PrivateNumberUtil;
+import com.google.gson.Gson;
 
 import org.xutils.common.util.LogUtil;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,6 +96,44 @@ public class FragmentC extends Fragment {
      * 获取未接电话
      */
     public void initData() {
+        File file = new File(Environment.getExternalStorageDirectory() + "/Police/", "treeUser.txt");
+        ArrayList<PrivatePhoneBean> mList = new ArrayList<>();
+        if (file.exists()) {
+            String phoneJosn = FileUtil.getFile("treeUser.txt");
+            Log.d("xulindev", "phoneJosn " + phoneJosn);
+            UsersPhone usersPhone = new Gson().fromJson(phoneJosn, UsersPhone.class);
+            List<UsersPhone.ResultBean.ChildrenBean> children = usersPhone.getResult().get(0).getChildren();
+            for (int i = 0; i < children.size(); i++) {
+                List<UsersPhone.ResultBean.ChildrenBean.UsersBean> users = children.get(i).getUsers();
+                for (int j = 0; j < users.size(); j++) {
+                    UsersPhone.ResultBean.ChildrenBean.UsersBean usersBean = users.get(j);
+                    String name = usersBean.getName();
+                    String phone = usersBean.getLandline();
+                    PrivatePhoneBean tb_contacts = new PrivatePhoneBean();
+                    tb_contacts.setName(name);
+                    tb_contacts.setPhoneNumber(phone);
+                    Log.d("xulindev", "name--" + name + " phone--" + phone);
+                    mList.add(tb_contacts);
+                }
+            }
+            List<UsersPhone.ResultBean.UsersBeanX> children2 = usersPhone.getResult().get(0).getUsers();
+            for (int i = 0; i < children2.size(); i++) {
+                UsersPhone.ResultBean.UsersBeanX usersBeanX = children2.get(i);
+                String name = usersBeanX.getName();
+                String phone = usersBeanX.getLandline();
+                PrivatePhoneBean tb_contacts = new PrivatePhoneBean();
+                tb_contacts.setName(name);
+                tb_contacts.setPhoneNumber(phone);
+                Log.d("xulindev", "name--" + name + " phone--" + phone);
+                mList.add(tb_contacts);
+            }
+        }
+        List<PrivatePhoneBean> beans = null;
+        String s = PrivateNumberUtil.readString();
+        if (!TextUtils.isEmpty(s)) {
+            beans = new Gson().fromJson(s, PrivatePhoneWhiteResult.class).getResult().getItems();
+        }
+
         Cursor cursor = getActivity().managedQuery(CallLog.Calls.CONTENT_URI, back, null,
                 null, null);
         missPhone = new ArrayList<>();
@@ -109,7 +154,28 @@ public class FragmentC extends Fragment {
                     bean.setName("未知来源");
                 }
                 bean.setTime(callDate);
-                missPhone.add(bean);
+
+                boolean isc = true;
+
+                for (PrivatePhoneBean p : mList) {
+                    if (p.getPhoneNumber().equals(bean.getPhoneNumber())) {
+                        missPhone.add(bean);
+                        isc = false;
+                        Log.d("xulindev", "PrivatePhoneBean1 添加成功 ");
+                        break;
+                    }
+                }
+
+                if (isc && beans != null){
+                    for (PrivatePhoneBean p : beans) {
+                        if (p.getPhoneNumber().equals(bean.getPhoneNumber())) {
+                            missPhone.add(bean);
+                            Log.d("xulindev", "PrivatePhoneBean2 添加成功 ");
+                            break;
+                        }
+                    }
+                }
+
                 LogUtil.d("missPhone1-->" + missPhone.toString());
                 System.out.println("number : " + name + "--" + numb + "--" + callDate);
             }
@@ -129,6 +195,7 @@ public class FragmentC extends Fragment {
         final List<PrivatePhoneBean> data = getData(o);
         LogUtil.d(data.toString());
 
+        Log.d("xulindev", "所内电话 " + data.toString());
         adapter = new PhoneAdapter(getActivity(), data, 3);
         lv_pal.setAdapter(adapter);
         lv_pal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
