@@ -158,7 +158,7 @@ public class FragmentC extends Fragment {
                 boolean isc = true;
 
                 for (PrivatePhoneBean p : mList) {
-                    if (p.getPhoneNumber().equals(bean.getPhoneNumber())) {
+                    if (p.getPhoneNumber() != null && bean.getPhoneNumber() != null && p.getPhoneNumber().equals(bean.getPhoneNumber())) {
                         missPhone.add(bean);
                         isc = false;
                         Log.d("xulindev", "PrivatePhoneBean1 添加成功 ");
@@ -166,9 +166,9 @@ public class FragmentC extends Fragment {
                     }
                 }
 
-                if (isc && beans != null){
+                if (isc && beans != null) {
                     for (PrivatePhoneBean p : beans) {
-                        if (p.getPhoneNumber().equals(bean.getPhoneNumber())) {
+                        if (p.getPhoneNumber() != null && bean.getPhoneNumber() != null && p.getPhoneNumber().equals(bean.getPhoneNumber())) {
                             missPhone.add(bean);
                             Log.d("xulindev", "PrivatePhoneBean2 添加成功 ");
                             break;
