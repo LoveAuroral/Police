@@ -93,31 +93,35 @@ public class FragmentA extends Fragment {
             Log.d("xulindev", "phoneJosn " + phoneJosn);
             mList = new ArrayList<>();
             UsersPhone usersPhone = new Gson().fromJson(phoneJosn, UsersPhone.class);
-            List<UsersPhone.ResultBean.ChildrenBean> children = usersPhone.getResult().get(0).getChildren();
-            Log.d("xulindev", "children-- " + children.toString() + " children size -- " + children.size());
-            for (int i = 0; i < children.size(); i++) {
-                List<UsersPhone.ResultBean.ChildrenBean.UsersBean> users = children.get(i).getUsers();
-                for (int j = 0; j < users.size(); j++) {
-                    UsersPhone.ResultBean.ChildrenBean.UsersBean usersBean = users.get(j);
-                    String name = usersBean.getName();
-                    String phone = usersBean.getLandline();
+            if (usersPhone.getResult().size() > 0) {
+                List<UsersPhone.ResultBean.ChildrenBean> children = usersPhone.getResult().get(0).getChildren();
+                Log.d("xulindev", "children-- " + children.toString() + " children size -- " + children.size());
+                for (int i = 0; i < children.size(); i++) {
+                    List<UsersPhone.ResultBean.ChildrenBean.UsersBean> users = children.get(i).getUsers();
+                    for (int j = 0; j < users.size(); j++) {
+                        UsersPhone.ResultBean.ChildrenBean.UsersBean usersBean = users.get(j);
+                        String name = usersBean.getName();
+                        String phone = usersBean.getLandline();
+                        PrivatePhoneBean tb_contacts = new PrivatePhoneBean();
+                        tb_contacts.setName(name);
+                        tb_contacts.setPhoneNumber(phone);
+                        Log.d("xulindev", "name--" + name + " phone--" + phone);
+                        mList.add(tb_contacts);
+                    }
+                }
+                List<UsersPhone.ResultBean.UsersBeanX> children2 = usersPhone.getResult().get(0).getUsers();
+                for (int i = 0; i < children2.size(); i++) {
+                    UsersPhone.ResultBean.UsersBeanX usersBeanX = children2.get(i);
+                    String name = usersBeanX.getName();
+                    String phone = usersBeanX.getLandline();
                     PrivatePhoneBean tb_contacts = new PrivatePhoneBean();
                     tb_contacts.setName(name);
                     tb_contacts.setPhoneNumber(phone);
                     Log.d("xulindev", "name--" + name + " phone--" + phone);
                     mList.add(tb_contacts);
                 }
-            }
-            List<UsersPhone.ResultBean.UsersBeanX> children2 = usersPhone.getResult().get(0).getUsers();
-            for (int i = 0; i < children2.size(); i++) {
-                UsersPhone.ResultBean.UsersBeanX usersBeanX = children2.get(i);
-                String name = usersBeanX.getName();
-                String phone = usersBeanX.getLandline();
-                PrivatePhoneBean tb_contacts = new PrivatePhoneBean();
-                tb_contacts.setName(name);
-                tb_contacts.setPhoneNumber(phone);
-                Log.d("xulindev", "name--" + name + " phone--" + phone);
-                mList.add(tb_contacts);
+            } else {
+                Toast.makeText(getContext(), "无所内号码，请同步白名单之后再试", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(getContext(), "无所内号码，请同步白名单之后再试", Toast.LENGTH_SHORT).show();

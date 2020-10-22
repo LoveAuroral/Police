@@ -780,6 +780,7 @@ public class PhoneInterfaceUtil {
 
     /**
      * 禁止/允许所有系统以及三方应用通知消息
+     *
      * @param admin
      * @param disabled
      */
@@ -790,6 +791,7 @@ public class PhoneInterfaceUtil {
 
     /**
      * 禁止/允许文件分享
+     *
      * @param admin
      * @param disabled
      */
