@@ -12,7 +12,6 @@ import android.util.Log;
 import com.dark_yx.policemain.fragment.presenter.UserPrivatePhone;
 import com.dark_yx.policemain.fragment.presenter.UsersPhone;
 import com.dark_yx.policemain.service.ListenCallService;
-import com.dark_yx.policemain.launcher.launcher3.Launcher;
 import com.dark_yx.policemaincommon.Util.FileUtil;
 import com.dark_yx.policemaincommon.Util.WriteLogUtil;
 import com.google.gson.Gson;
@@ -779,12 +778,34 @@ public class PhoneInterfaceUtil {
         manager.setUSBTetheringDisabled(admin, disabled);
     }
 
+    /**
+     * 禁止/允许所有系统以及三方应用通知消息
+     * @param admin
+     * @param disabled
+     */
+    public static void setNotificationDisabled(ComponentName admin, boolean disabled) {
+        DeviceSettingsManager manager = new DeviceSettingsManager();
+        manager.setNotificationDisabled(admin, disabled);
+    }
+
+    /**
+     * 禁止/允许文件分享
+     * @param admin
+     * @param disabled
+     */
+    public static void setFileShareDisabled(ComponentName admin, boolean disabled) {
+        DeviceRestrictionManager manager = new DeviceRestrictionManager();
+        manager.setFileShareDisabled(admin, disabled);
+    }
+
     public static void openInit(final ComponentName admin, String packageName, String className, Context context) {
         new WhiteListUtil(context, true).getData();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(new Intent(context, ListenCallService.class));
         }
         PhoneInterfaceUtil.setPowerDisabled(admin, true);//禁用通过电源键进入关机界面
+        PhoneInterfaceUtil.setNotificationDisabled(admin, true);//禁止/允许所有系统以及三方应用通知消息
+        PhoneInterfaceUtil.setFileShareDisabled(admin, true);//禁止/允许文件分享
 //        PhoneInterfaceUtil.setSlot2Disabled(admin, true);
         LogUtil.d("禁用状态是---->" + PhoneInterfaceUtil.getMenuStatus(admin));
         PhoneInterfaceUtil.setUSBTetheringDisabled(admin, true);//禁用/USB 网络共享菜单
@@ -815,6 +836,8 @@ public class PhoneInterfaceUtil {
         PhoneInterfaceUtil.setSMSDisable(admin, false);
         PhoneInterfaceUtil.removeDisallowApp(admin);
         PhoneInterfaceUtil.setPowerDisabled(admin, false);//启用通过电源键进入关机界面
+        PhoneInterfaceUtil.setNotificationDisabled(admin, false);//禁止/允许所有系统以及三方应用通知消息
+        PhoneInterfaceUtil.setFileShareDisabled(admin, false);//禁止/允许文件分享
         PhoneInterfaceUtil.setWifiDisable(admin, false);//启用wifi
         PhoneInterfaceUtil.setSendNotificationDisabled(admin, false);//启用应用发送通知功能
         PhoneInterfaceUtil.setUSBDisabled(admin, false);//启用 USB 调试模式、数据传输

@@ -59,6 +59,7 @@ dependencies {
     implementation files('libs/woogeenbase.jar')
     implementation files('libs/woogeenp2p.jar')
     implementation 'com.github.hotchemi:permissionsdispatcher:2.3.1'
+    implementation files('libs/mdmkit-10.1.0.300.jar')
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
     implementation files('libs/basic-http-client-android-0.88.jar')
     implementation files('libs/parallel-basic-http-client.jar')
@@ -67,7 +68,6 @@ dependencies {
     implementation 'com.cpiz.bubbleview:bubbleview:1.0.2'
     //noinspection GradleDynamicVersion
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
-    implementation files('libs/hwsdk-mdm-openapi-2.0.0.jar')
     implementation files('libs/newabel_nfc_sdk-1.0.jar')
     implementation 'com.jakewharton:butterknife:7.0.1'
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
