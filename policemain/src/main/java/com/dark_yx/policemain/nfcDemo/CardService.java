@@ -10,21 +10,15 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.dark_yx.policemain.activity.MainActivity;
-import com.dark_yx.policemain.api.ApiFactory;
-import com.dark_yx.policemain.beans.WorkInput;
-import com.dark_yx.policemain.beans.WorkResult;
 import com.dark_yx.policemain.broadCastReceiver.DeviceReceiver;
-import com.dark_yx.policemain.login.view.LoginActivity;
 import com.dark_yx.policemain.util.CommonMethod;
 import com.dark_yx.policemain.util.PhoneInterfaceUtil;
 import com.dark_yx.policemain.util.WhiteListUtil;
 import com.dark_yx.policemaincommon.Models.User;
 import com.dark_yx.policemaincommon.Util.DataUtil;
 import com.dark_yx.policemaincommon.Util.FileUtil;
-import com.dark_yx.policemaincommon.api.MyCallBack;
 import com.newabel.nfcsdk.NfcHelper;
 
 import org.xutils.common.util.LogUtil;
@@ -36,8 +30,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
-
-import retrofit2.Response;
 
 public class CardService extends HostApduService implements NfcHelper.NfcCallBack {
     private final String TAG = this.getClass().getSimpleName();
@@ -114,7 +106,7 @@ public class CardService extends HostApduService implements NfcHelper.NfcCallBac
             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mAdminName);
             context.startActivity(intent);
         } else {
-            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), LoginActivity.class.getCanonicalName(), context.getApplicationContext());
+            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), MainActivity.class.getCanonicalName(), context.getApplicationContext());
         }
     }
 

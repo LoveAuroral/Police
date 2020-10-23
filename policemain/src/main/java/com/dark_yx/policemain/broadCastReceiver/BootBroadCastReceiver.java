@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.dark_yx.policemain.activity.MainActivity;
 import com.dark_yx.policemain.login.view.LoginActivity;
@@ -30,7 +29,6 @@ import org.xutils.common.util.LogUtil;
 import java.lang.reflect.Method;
 
 import static android.content.Context.TELEPHONY_SERVICE;
-import static android.widget.Toast.LENGTH_LONG;
 
 public class BootBroadCastReceiver extends BroadcastReceiver {
     private static final String TAG = "BootBroadCastReceiver";
@@ -73,7 +71,7 @@ public class BootBroadCastReceiver extends BroadcastReceiver {
             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mAdminName);
             context.startActivity(intent);
         } else {
-            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), LoginActivity.class.getCanonicalName(), context.getApplicationContext());
+            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), MainActivity.class.getCanonicalName(), context.getApplicationContext());
         }
     }
 

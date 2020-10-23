@@ -131,11 +131,11 @@
         <!--                <category android:name="android.intent.category.DEFAULT" />-->
         <!--            </intent-filter>-->
         <!--        </activity>-->
-        <activity
-            android:name=".activity.MainActivity"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" /> <!-- Intent received used to install shortcuts from other applications -->
+        <!--        <activity-->
+        <!--            android:name=".activity.MainActivity"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:launchMode="singleTask"-->
+        <!--            android:screenOrientation="portrait" /> &lt;!&ndash; Intent received used to install shortcuts from other applications &ndash;&gt;      -->
         <activity
             android:name=".activity.Videop2pAllActivity"
             android:excludeFromRecents="true"
@@ -177,8 +177,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 隐藏桌面图标 -->
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.HOME" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -202,6 +200,17 @@
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".chat.view.chatui.ui.activity.ChatActivity"
@@ -239,12 +248,12 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-<!--        <provider-->
-<!--            android:name=".launcher.launcher3.LauncherProvider"-->
-<!--            android:authorities="com.android.launcher3.settings"-->
-<!--            android:exported="true"-->
-<!--            android:readPermission="com.android.launcher3.permission.READ_SETTINGS_2"-->
-<!--            android:writePermission="com.android.launcher3.permission.WRITE_SETTINGS_2" />-->
+        <!--        <provider-->
+        <!--            android:name=".launcher.launcher3.LauncherProvider"-->
+        <!--            android:authorities="com.android.launcher3.settings"-->
+        <!--            android:exported="true"-->
+        <!--            android:readPermission="com.android.launcher3.permission.READ_SETTINGS_2"-->
+        <!--            android:writePermission="com.android.launcher3.permission.WRITE_SETTINGS_2" />-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -255,28 +264,28 @@
                 android:resource="@xml/file_paths_public" />
         </provider>
 
-<!--        <receiver android:name=".launcher.launcher3.WallpaperChangedReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.WALLPAPER_CHANGED" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-<!--        <receiver-->
-<!--            android:name=".launcher.launcher3.InstallShortcutReceiver"-->
-<!--            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-<!--        <receiver android:name=".launcher.launcher3.AppWidgetsRestoredReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
-<!--        <receiver android:name=".launcher.launcher3.StartupReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+        <!--        <receiver android:name=".launcher.launcher3.WallpaperChangedReceiver">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.WALLPAPER_CHANGED" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
+        <!--        <receiver-->
+        <!--            android:name=".launcher.launcher3.InstallShortcutReceiver"-->
+        <!--            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
+        <!--        <receiver android:name=".launcher.launcher3.AppWidgetsRestoredReceiver">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.appwidget.action.APPWIDGET_HOST_RESTORED" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
+        <!--        <receiver android:name=".launcher.launcher3.StartupReceiver">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
         <receiver android:name=".broadCastReceiver.OpenAppReceiverMJ">
             <intent-filter>
                 <action android:name="ACTION_WORK_MODE" />
@@ -334,9 +343,9 @@
             </intent-filter>
         </receiver>
 
-<!--        <service-->
-<!--            android:name=".launcher.launcher3.MemoryTracker"-->
-<!--            android:enabled="@bool/debug_memory_enabled" />-->
+        <!--        <service-->
+        <!--            android:name=".launcher.launcher3.MemoryTracker"-->
+        <!--            android:enabled="@bool/debug_memory_enabled" />-->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -368,6 +377,17 @@
             android:name=".service.BaseSationService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".service.AccessibilityService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibilityservice" />
+        </service>
     </application>
 
     <permission
@@ -463,7 +483,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 聚焦 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 刷新视图 -->
-<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> &lt;!&ndash; nfc硬件 &ndash;&gt;-->
+    <!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> &lt;!&ndash; nfc硬件 &ndash;&gt;-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />

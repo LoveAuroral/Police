@@ -9,13 +9,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.dark_yx.policemain.activity.MainActivity;
-import com.dark_yx.policemain.util.CommonMethod;
-import com.dark_yx.policemain.util.PhoneInterfaceUtil;
-import com.dark_yx.policemain.util.WhiteListUtil;
 import com.dark_yx.policemain.api.ApiFactory;
 import com.dark_yx.policemain.beans.WorkInput;
 import com.dark_yx.policemain.beans.WorkResult;
-import com.dark_yx.policemain.login.view.LoginActivity;
+import com.dark_yx.policemain.util.CommonMethod;
+import com.dark_yx.policemain.util.PhoneInterfaceUtil;
+import com.dark_yx.policemain.util.WhiteListUtil;
 import com.dark_yx.policemaincommon.Util.DataUtil;
 import com.dark_yx.policemaincommon.api.MyCallBack;
 
@@ -63,7 +62,7 @@ public class OpenAppReceiverMJ extends BroadcastReceiver {
                 whiteListUtil.getData();
                 /* 启动当前应用程序 */
                 DataUtil.setEnter(context, true);
-                PhoneInterfaceUtil.openInit(admin, context.getPackageName(), LoginActivity.class.getCanonicalName(), context.getApplicationContext());
+                PhoneInterfaceUtil.openInit(admin, context.getPackageName(), MainActivity.class.getCanonicalName(), context.getApplicationContext());
                 Intent myIntent = new Intent(context, MainActivity.class);
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(myIntent);

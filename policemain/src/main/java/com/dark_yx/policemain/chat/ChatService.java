@@ -16,15 +16,11 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.widget.Toast;
 
-import com.dark_yx.policemain.broadCastReceiver.DeviceReceiver;
 import com.dark_yx.policemain.R;
-import com.dark_yx.policemain.util.CommonMethod;
-import com.dark_yx.policemain.util.NetUtil;
-import com.dark_yx.policemain.util.PhoneInterfaceUtil;
-import com.dark_yx.policemain.util.PollingBean;
-import com.dark_yx.policemain.util.WhiteListUtil;
+import com.dark_yx.policemain.activity.MainActivity;
 import com.dark_yx.policemain.api.ApiFactory;
 import com.dark_yx.policemain.beans.EntityBean;
+import com.dark_yx.policemain.broadCastReceiver.DeviceReceiver;
 import com.dark_yx.policemain.chat.beans.ChatGroupBean;
 import com.dark_yx.policemain.chat.beans.ChatMessage;
 import com.dark_yx.policemain.chat.beans.ExitGroupBean;
@@ -42,8 +38,11 @@ import com.dark_yx.policemain.chat.database.ChatDb;
 import com.dark_yx.policemain.chat.view.chatui.util.Constants;
 import com.dark_yx.policemain.chat.view.chatui.util.FileUtils;
 import com.dark_yx.policemain.chat.view.chatui.util.MediaManager;
-import com.dark_yx.policemain.launcher.launcher3.Launcher;
 import com.dark_yx.policemain.login.view.LoginActivity;
+import com.dark_yx.policemain.util.CommonMethod;
+import com.dark_yx.policemain.util.NetUtil;
+import com.dark_yx.policemain.util.PhoneInterfaceUtil;
+import com.dark_yx.policemain.util.PollingBean;
 import com.dark_yx.policemaincommon.Models.NoticeBean;
 import com.dark_yx.policemaincommon.Models.UsersBean;
 import com.dark_yx.policemaincommon.Util.DataUtil;
@@ -326,7 +325,7 @@ public class ChatService extends Service implements IRealTimeCallback {
         /* 启动当前应用程序 */
         DataUtil.setEnter(context, true);
         CommonMethod.sendStatus(true, context);
-        PhoneInterfaceUtil.openInit(admin, context.getPackageName(), LoginActivity.class.getCanonicalName(),
+        PhoneInterfaceUtil.openInit(admin, context.getPackageName(), MainActivity.class.getCanonicalName(),
                 context.getApplicationContext());
         Intent myIntent = new Intent(context, LoginActivity.class);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

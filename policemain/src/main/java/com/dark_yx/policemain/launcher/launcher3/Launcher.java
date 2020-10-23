@@ -31,8 +31,6 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.SearchManager;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
 import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -74,8 +72,6 @@ import android.os.Message;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.os.UserHandle;
-import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
 import android.text.Selection;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -625,7 +621,7 @@ public class Launcher extends Activity
                 LogUtil.d("openApp---->>" + getNfcMessage);
                 /* 启动当前应用程序 */
                 DataUtil.setEnter(this, true);
-                PhoneInterfaceUtil.openInit(mAdminName, this.getPackageName(), LoginActivity.class.getCanonicalName(), getApplicationContext());
+                PhoneInterfaceUtil.openInit(mAdminName, this.getPackageName(), MainActivity.class.getCanonicalName(), getApplicationContext());
                 Intent myIntent = new Intent(this, MainActivity.class);
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(myIntent);
@@ -1228,7 +1224,7 @@ public class Launcher extends Activity
         if (DataUtil.isEnter(this)) {
             LogUtil.d("launcherResume--->" + "工作模式");
             DataUtil.setEnter(this, true);
-            PhoneInterfaceUtil.openInit(mAdminName, getPackageName(), LoginActivity.class.getCanonicalName(), getApplicationContext());
+            PhoneInterfaceUtil.openInit(mAdminName, getPackageName(), MainActivity.class.getCanonicalName(), getApplicationContext());
             Intent myIntent = new Intent(this, LoginActivity.class);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(myIntent);

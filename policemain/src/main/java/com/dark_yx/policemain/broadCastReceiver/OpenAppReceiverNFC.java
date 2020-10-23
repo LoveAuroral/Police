@@ -13,7 +13,6 @@ import com.dark_yx.policemain.activity.MainActivity;
 import com.dark_yx.policemain.util.CommonMethod;
 import com.dark_yx.policemain.util.PhoneInterfaceUtil;
 import com.dark_yx.policemain.util.WhiteListUtil;
-import com.dark_yx.policemain.login.view.LoginActivity;
 import com.dark_yx.policemaincommon.Models.User;
 import com.dark_yx.policemaincommon.Util.DataUtil;
 
@@ -63,7 +62,7 @@ public class OpenAppReceiverNFC extends BroadcastReceiver {
             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mAdminName);
             context.startActivity(intent);
         } else {
-            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), LoginActivity.class.getCanonicalName(), context.getApplicationContext());
+            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), MainActivity.class.getCanonicalName(), context.getApplicationContext());
         }
     }
 

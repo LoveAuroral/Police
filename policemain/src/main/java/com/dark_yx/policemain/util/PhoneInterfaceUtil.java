@@ -830,6 +830,15 @@ public class PhoneInterfaceUtil {
         PhoneInterfaceUtil.setBarStatus(admin, true);//设置下拉状态栏启用
         PhoneInterfaceUtil.setHomedisable(admin, true);//禁用HOME键
         PhoneInterfaceUtil.addPersistentAppRun(admin, context);//添加保持某应用始终运行名单
+        try{
+            DeviceApplicationManager manager = new DeviceApplicationManager();
+            manager.killApplicationProcess(admin,"com.tencent.mm");
+            manager.killApplicationProcess(admin,"com.tencent.mobileqq");
+            manager.killApplicationProcess(admin,"com.eg.android.AlipayGphone");
+            manager.killApplicationProcess(admin,"com.alibaba.android.rimet");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         LogUtil.d("openInit");
     }
 

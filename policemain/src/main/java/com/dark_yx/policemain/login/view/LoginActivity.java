@@ -29,6 +29,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ import com.dark_yx.policemain.login.bean.LoginResult;
 import com.dark_yx.policemain.login.contract.LoginContract;
 import com.dark_yx.policemain.login.presenter.LoginPresenter;
 import com.dark_yx.policemain.nfc.NFCHandle;
+import com.dark_yx.policemain.service.AccessibilityService;
 import com.dark_yx.policemain.util.CommonMethod;
 import com.dark_yx.policemain.util.PhoneInfoUtils;
 import com.dark_yx.policemain.util.PhoneInterfaceUtil;
@@ -129,6 +131,48 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
             startActivity(intent);
         }
+    }
+
+    /**
+     * 检测辅助功能是否开启
+     *
+     * @param mContext
+     * @return boolean
+     */
+    private boolean isAccessibilitySettingsOn(Context mContext, String serviceName) {
+        int accessibilityEnabled = 0;
+        // 对应的服务
+        final String service = getPackageName() + "/" + serviceName;
+        //Log.i(TAG, "service:" + service);
+        try {
+            accessibilityEnabled = Settings.Secure.getInt(mContext.getApplicationContext().getContentResolver(),
+                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+            Log.v(TAG, "accessibilityEnabled = " + accessibilityEnabled);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.e(TAG, "Error finding setting, default accessibility to not found: " + e.getMessage());
+        }
+        TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
+
+        if (accessibilityEnabled == 1) {
+            Log.v(TAG, "***ACCESSIBILITY IS ENABLED*** -----------------");
+            String settingValue = Settings.Secure.getString(mContext.getApplicationContext().getContentResolver(),
+                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (settingValue != null) {
+                mStringColonSplitter.setString(settingValue);
+                while (mStringColonSplitter.hasNext()) {
+                    String accessibilityService = mStringColonSplitter.next();
+
+                    Log.v(TAG, "-------------- > accessibilityService :: " + accessibilityService + " " + service);
+                    if (accessibilityService.equalsIgnoreCase(service)) {
+                        Log.v(TAG, "We've found the correct setting - accessibility is switched on!");
+                        return true;
+                    }
+                }
+            }
+        } else {
+            Log.v(TAG, "***ACCESSIBILITY IS DISABLED***");
+        }
+        return false;
     }
 
     /**
@@ -250,6 +294,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private void init() {
         checkDevice();
+        if (!isAccessibilitySettingsOn(LoginActivity.this, AccessibilityService.class.getCanonicalName())) {
+            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(LoginActivity.this, AccessibilityService.class);
+            startService(intent);
+        }
 //        admin = new ComponentName(this, DeviceReceiver.class);
         User account = DataUtil.getAccount();
         String userName = account.getUserName();
@@ -489,8 +540,15 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            return true;
+        Log.i("xulindev", "LoginActivity 按键拦截 = keyCode " + keyCode + " isEnter " + DataUtil.isEnter(this));
+        if (DataUtil.isEnter(this)) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                return true;//return true;拦截事件传递,从而屏蔽back键。
+            }
+            if (KeyEvent.KEYCODE_HOME == keyCode) {
+                Toast.makeText(getApplicationContext(), "请点击登录，进入管控系统", Toast.LENGTH_SHORT).show();
+                return true;//同理
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -36,10 +36,7 @@ import com.dark_yx.policemain.activity.ApkTool;
 import com.dark_yx.policemain.activity.CheckPerimissionActivity;
 import com.dark_yx.policemain.activity.MainActivity;
 import com.dark_yx.policemain.broadCastReceiver.DeviceReceiver;
-import com.dark_yx.policemain.chat.ChatService;
 import com.dark_yx.policemain.entity.UpdataInfo;
-import com.dark_yx.policemain.launcher.launcher3.Launcher;
-import com.dark_yx.policemain.login.view.LoginActivity;
 import com.dark_yx.policemain.util.CommonMethod;
 import com.dark_yx.policemain.util.PhoneInterfaceUtil;
 import com.dark_yx.policemaincommon.Models.User;
@@ -138,7 +135,7 @@ public class BaseSationService extends Service {
         packageNames1.add("com.android.settings");
         packageNames1.add("com.huawei.systemmanager");
         packageNames1.add("com.android.packageinstaller");
-        packageNames2=new ArrayList<>();
+        packageNames2 = new ArrayList<>();
         packageNames2.add("com.huawei.KoBackup");
         packageNames2.add("com.huawei.hidisk");
         packageNames2.add("com.google.android.gms");
@@ -187,7 +184,7 @@ public class BaseSationService extends Service {
             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mAdminName);
             context.startActivity(intent);
         } else {
-            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), LoginActivity.class.getCanonicalName(), context.getApplicationContext());
+            PhoneInterfaceUtil.openInit(mAdminName, context.getPackageName(), MainActivity.class.getCanonicalName(), context.getApplicationContext());
         }
     }
 
@@ -233,9 +230,9 @@ public class BaseSationService extends Service {
                     PhoneInterfaceUtil.setBarStatus(admin, true);//设置下拉状态栏禁用
                 }
             }
-            if (packageNames2.contains(str)){
+            if (packageNames2.contains(str)) {
                 PhoneInterfaceUtil.setWifiDisable(admin, true);//禁用wifi
-            }else {
+            } else {
                 PhoneInterfaceUtil.setWifiDisable(admin, false);//启用wifi
             }
             boolean perimissionFlas = false;
