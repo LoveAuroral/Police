@@ -24,8 +24,10 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -55,7 +57,9 @@ import com.dark_yx.policemain.login.bean.LoginInput;
 import com.dark_yx.policemain.login.bean.LoginResult;
 import com.dark_yx.policemain.login.contract.LoginContract;
 import com.dark_yx.policemain.login.presenter.LoginPresenter;
+import com.dark_yx.policemain.login.view.LoginActivity;
 import com.dark_yx.policemain.nfc.NFCHandle;
+import com.dark_yx.policemain.service.AccessibilityService;
 import com.dark_yx.policemain.service.ListenCallService;
 import com.dark_yx.policemain.util.CheckVersionTask;
 import com.dark_yx.policemain.util.CommonMethod;
@@ -73,6 +77,7 @@ import com.dark_yx.policemaincommon.Util.VibratorUtil;
 import com.dark_yx.policemaincommon.Util.WriteLogUtil;
 import com.dark_yx.policemaincommon.api.MyCallBack;
 import com.google.gson.Gson;
+import com.huawei.android.app.admin.DeviceApplicationManager;
 import com.intel.webrtc.base.ActionCallback;
 import com.intel.webrtc.base.RemoteStream;
 import com.intel.webrtc.base.WoogeenException;
@@ -156,7 +161,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //        setScreenListener();
         init();
         getAppWhiteListAsync();
-        thread.start();
+//        thread.start();
         // 程序崩溃时触发线程,以下用来捕获程序崩溃异常
         Thread.setDefaultUncaughtExceptionHandler(handler);
     }
@@ -437,7 +442,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         initView();
         registBro();
     }
-
 
     private void initAdmin() {
         if (DataUtil.isEnter(this)) {
@@ -728,13 +732,56 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         PoliceMainApplication.registerMainObServer(observerMain);
     }
 
+    /**
+     * 检测辅助功能是否开启
+     *
+     * @param mContext
+     * @return boolean
+     */
+    private boolean isAccessibilitySettingsOn(Context mContext, String serviceName) {
+        int accessibilityEnabled = 0;
+        // 对应的服务
+        final String service = getPackageName() + "/" + serviceName;
+        //Log.i(TAG, "service:" + service);
+        try {
+            accessibilityEnabled = Settings.Secure.getInt(mContext.getApplicationContext().getContentResolver(),
+                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+            Log.v(TAG, "accessibilityEnabled = " + accessibilityEnabled);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.e(TAG, "Error finding setting, default accessibility to not found: " + e.getMessage());
+        }
+        TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
+
+        if (accessibilityEnabled == 1) {
+            Log.v(TAG, "***ACCESSIBILITY IS ENABLED*** -----------------");
+            String settingValue = Settings.Secure.getString(mContext.getApplicationContext().getContentResolver(),
+                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (settingValue != null) {
+                mStringColonSplitter.setString(settingValue);
+                while (mStringColonSplitter.hasNext()) {
+                    String accessibilityService = mStringColonSplitter.next();
+
+                    Log.v(TAG, "-------------- > accessibilityService :: " + accessibilityService + " " + service);
+                    if (accessibilityService.equalsIgnoreCase(service)) {
+                        Log.v(TAG, "We've found the correct setting - accessibility is switched on!");
+                        return true;
+                    }
+                }
+            }
+        } else {
+            Log.v(TAG, "***ACCESSIBILITY IS DISABLED***");
+        }
+        return false;
+    }
+
     @Override
     protected void onResume() {
-        PhoneInterfaceUtil.setPowerDisabled(mAdminName, false);//禁用通过电源键进入关机界面
-        Log.d(TAG, "mainActivity---------onResume");
-        if (nfcAdapter != null) {
-            nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);//寮€鍚墠鍙板彂甯冪郴缁�
-        }
+        if (DataUtil.isLogin(getApplicationContext())) {
+            PhoneInterfaceUtil.setPowerDisabled(mAdminName, false);//禁用通过电源键进入关机界面
+            Log.d(TAG, "mainActivity---------onResume");
+            if (nfcAdapter != null) {
+                nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);//寮€鍚墠鍙板彂甯冪郴缁�
+            }
         /*if (isLock) {
             if (packageNameList.contains(CAMERA_PKG)) {
                 packageNameList.remove(CAMERA_PKG);
@@ -744,7 +791,25 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 }
             }
         }*/
-        initChat();
+            initChat();
+            if (!isAccessibilitySettingsOn(MainActivity.this, AccessibilityService.class.getCanonicalName())) {
+                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(MainActivity.this, AccessibilityService.class);
+                startService(intent);
+            }
+            if (DataUtil.isEnter(getApplicationContext())) {
+                DeviceApplicationManager manager = new DeviceApplicationManager();
+                manager.killApplicationProcess(mAdminName, "com.tencent.mm");
+                manager.killApplicationProcess(mAdminName, "com.tencent.mobileqq");
+                manager.killApplicationProcess(mAdminName, "com.eg.android.AlipayGphone");
+                manager.killApplicationProcess(mAdminName, "com.alibaba.android.rimet");
+            }
+        } else {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
+        }
         super.onResume();
     }
 

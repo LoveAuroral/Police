@@ -164,6 +164,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rl_exit:
                 DataUtil.setLogin(context, false);
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
                 break;
             case R.id.rl_setnfc:
                 Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);

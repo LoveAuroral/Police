@@ -58,6 +58,7 @@ import com.dark_yx.policemaincommon.Util.DataUtil;
 import com.dark_yx.policemaincommon.Util.SystemInfo;
 import com.dark_yx.policemaincommon.Util.WriteLogUtil;
 import com.dou361.dialogui.DialogUIUtils;
+import com.huawei.android.app.admin.DeviceApplicationManager;
 
 import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
@@ -112,6 +113,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdminName = new ComponentName(this, DeviceReceiver.class);
+        PhoneInterfaceUtil.disDeleteApp(mAdminName, this);//防卸载
         checkPermissons();
         initNFC();
         init();
@@ -294,13 +296,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private void init() {
         checkDevice();
-        if (!isAccessibilitySettingsOn(LoginActivity.this, AccessibilityService.class.getCanonicalName())) {
-            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(LoginActivity.this, AccessibilityService.class);
-            startService(intent);
-        }
 //        admin = new ComponentName(this, DeviceReceiver.class);
         User account = DataUtil.getAccount();
         String userName = account.getUserName();
@@ -362,13 +357,19 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onStart() {
         super.onStart();
-        PhoneInterfaceUtil.disDeleteApp(mAdminName, this);//防卸载
         DataUtil.setActivity(this, "LoginActivity");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (!isAccessibilitySettingsOn(LoginActivity.this, AccessibilityService.class.getCanonicalName())) {
+            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(LoginActivity.this, AccessibilityService.class);
+            startService(intent);
+        }
 //        LogUtil.d("isEnter--->>>"+DataUtil.isEnter(this));
         if (DataUtil.isEnter(this)) {
             PhoneInterfaceUtil.setPowerDisabled(mAdminName, true);//禁用通过电源键进入关机界面
@@ -376,6 +377,13 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         }
         if (nfcAdapter != null) {
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);//寮€鍚墠鍙板彂甯冪郴缁�
+        }
+        if (DataUtil.isEnter(getApplicationContext())) {
+            DeviceApplicationManager manager = new DeviceApplicationManager();
+            manager.killApplicationProcess(mAdminName, "com.tencent.mm");
+            manager.killApplicationProcess(mAdminName, "com.tencent.mobileqq");
+            manager.killApplicationProcess(mAdminName, "com.eg.android.AlipayGphone");
+            manager.killApplicationProcess(mAdminName, "com.alibaba.android.rimet");
         }
     }
 

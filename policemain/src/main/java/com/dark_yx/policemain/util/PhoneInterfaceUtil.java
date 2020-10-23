@@ -800,13 +800,18 @@ public class PhoneInterfaceUtil {
         manager.setFileShareDisabled(admin, disabled);
     }
 
+    public static void killApplicationProcess(ComponentName admin, String packageName) {
+        DeviceApplicationManager manager = new DeviceApplicationManager();
+        manager.killApplicationProcess(admin, packageName);
+    }
+
     public static void openInit(final ComponentName admin, String packageName, String className, Context context) {
         new WhiteListUtil(context, true).getData();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(new Intent(context, ListenCallService.class));
         }
         PhoneInterfaceUtil.setPowerDisabled(admin, true);//禁用通过电源键进入关机界面
-        PhoneInterfaceUtil.setNotificationDisabled(admin, true);//禁止/允许所有系统以及三方应用通知消息
+//        PhoneInterfaceUtil.setNotificationDisabled(admin, true);//禁止/允许所有系统以及三方应用通知消息
         PhoneInterfaceUtil.setFileShareDisabled(admin, true);//禁止/允许文件分享
 //        PhoneInterfaceUtil.setSlot2Disabled(admin, true);
         LogUtil.d("禁用状态是---->" + PhoneInterfaceUtil.getMenuStatus(admin));
@@ -817,7 +822,7 @@ public class PhoneInterfaceUtil {
         PhoneInterfaceUtil.setAppAsLauncher(admin, packageName, className);//设置app为桌面启动器
         addIgnoreFrequentRelaunchAppList(admin, context);
         PhoneInterfaceUtil.setGoogleBackupRestoreDisabled(admin, true);//禁用 google 的备份和恢复
-        PhoneInterfaceUtil.disDeleteApp(admin, context);//防卸载
+//        PhoneInterfaceUtil.disDeleteApp(admin, context);//防卸载
 //        PhoneInterfaceUtil.setWifiDisable(admin, true);//禁用wifi
         PhoneInterfaceUtil.setSystemUpdateDisabled(admin, true);//禁用系统升级功能
         PhoneInterfaceUtil.setDevelopmentOptionDisabled(admin, true);//禁止开发人员选项
@@ -830,15 +835,6 @@ public class PhoneInterfaceUtil {
         PhoneInterfaceUtil.setBarStatus(admin, true);//设置下拉状态栏启用
         PhoneInterfaceUtil.setHomedisable(admin, true);//禁用HOME键
         PhoneInterfaceUtil.addPersistentAppRun(admin, context);//添加保持某应用始终运行名单
-        try{
-            DeviceApplicationManager manager = new DeviceApplicationManager();
-            manager.killApplicationProcess(admin,"com.tencent.mm");
-            manager.killApplicationProcess(admin,"com.tencent.mobileqq");
-            manager.killApplicationProcess(admin,"com.eg.android.AlipayGphone");
-            manager.killApplicationProcess(admin,"com.alibaba.android.rimet");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         LogUtil.d("openInit");
     }
 

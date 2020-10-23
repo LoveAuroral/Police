@@ -165,7 +165,7 @@ public class FileUtil {
      */
     public static String readMode() {
         byte[] data = readBytes(file_mode);
-        String ret = null;
+        String ret = "";
         try {
             ret = new String(data, "utf-8");
         } catch (Exception e) {
