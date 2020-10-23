@@ -802,7 +802,11 @@ public class PhoneInterfaceUtil {
 
     public static void killApplicationProcess(ComponentName admin, String packageName) {
         DeviceApplicationManager manager = new DeviceApplicationManager();
-        manager.killApplicationProcess(admin, packageName);
+        try {
+            manager.killApplicationProcess(admin, packageName);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void openInit(final ComponentName admin, String packageName, String className, Context context) {
