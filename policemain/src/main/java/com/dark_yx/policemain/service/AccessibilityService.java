@@ -34,9 +34,10 @@ public class AccessibilityService extends android.accessibilityservice.Accessibi
             String lockScreen = "com.android.systemui";
             String phone = "com.android.incallui";
             String calculator = "com.android.calculator2";
+            String deskclock = "com.android.deskclock";
             if (packageName.equals(app) || packageName.equals(system) ||
                     packageName.equals(lockScreen) || packageName.equals(phone) ||
-                    packageName.equals(calculator)) {
+                    packageName.equals(calculator) || packageName.equals(deskclock)) {
                 return;
             }
             PhoneInterfaceUtil.killApplicationProcess(admin, packageName);

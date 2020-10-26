@@ -4,7 +4,6 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-
 import org.xutils.common.util.LogUtil;
 
 import java.text.SimpleDateFormat;
@@ -38,14 +37,17 @@ public class SystemInfo {
     public static String GetIMEI(Context context) {
         if (IMEI == null) {
             tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);//手机服务
-            Log.e(TAG, tm.getDeviceId());
-            IMEI = tm.getDeviceId();
+            try {
+                IMEI = tm.getDeviceId();
+            } catch (Exception e) {
+                IMEI = "";
+            }
         }
         return IMEI;
     }
 
     /*
-    *获取电量信息
+     *获取电量信息
      */
     public static String GetBatteryScale(Context context) {
         if (BatteryScale == null) {

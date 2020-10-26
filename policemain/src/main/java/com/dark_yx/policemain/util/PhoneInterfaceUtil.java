@@ -800,6 +800,16 @@ public class PhoneInterfaceUtil {
         manager.setFileShareDisabled(admin, disabled);
     }
 
+    /**
+     * 禁用系统预装浏览器
+     * @param admin
+     * @param disabled
+     */
+    public static void setSystemBrowserDisabled(ComponentName admin, boolean disabled) {
+        DeviceRestrictionManager manager = new DeviceRestrictionManager();
+        manager.setSystemBrowserDisabled(admin, disabled);
+    }
+
     public static void killApplicationProcess(ComponentName admin, String packageName) {
         DeviceApplicationManager manager = new DeviceApplicationManager();
         try {
@@ -815,6 +825,7 @@ public class PhoneInterfaceUtil {
             context.startForegroundService(new Intent(context, ListenCallService.class));
         }
         PhoneInterfaceUtil.setPowerDisabled(admin, true);//禁用通过电源键进入关机界面
+        PhoneInterfaceUtil.setSystemBrowserDisabled(admin, true);//禁用系统预装浏览器
 //        PhoneInterfaceUtil.setNotificationDisabled(admin, true);//禁止/允许所有系统以及三方应用通知消息
         PhoneInterfaceUtil.setFileShareDisabled(admin, true);//禁止/允许文件分享
 //        PhoneInterfaceUtil.setSlot2Disabled(admin, true);
@@ -847,6 +858,7 @@ public class PhoneInterfaceUtil {
         PhoneInterfaceUtil.setSMSDisable(admin, false);
         PhoneInterfaceUtil.removeDisallowApp(admin);
         PhoneInterfaceUtil.setPowerDisabled(admin, false);//启用通过电源键进入关机界面
+        PhoneInterfaceUtil.setSystemBrowserDisabled(admin, false);//禁用系统预装浏览器
         PhoneInterfaceUtil.setNotificationDisabled(admin, false);//禁止/允许所有系统以及三方应用通知消息
         PhoneInterfaceUtil.setFileShareDisabled(admin, false);//禁止/允许文件分享
         PhoneInterfaceUtil.setWifiDisable(admin, false);//启用wifi
