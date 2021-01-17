@@ -70,6 +70,7 @@ public class PoliceMainApplication extends Application {
         ComponentName componentName = new ComponentName(this, DeviceReceiver.class);
         PhoneInterfaceUtil.setActiveAdmin(componentName);
         PhoneInterfaceUtil.openNotCancelActivationAdmin(componentName, this);
+        PhoneInterfaceUtil.disDeleteApp(componentName, this);
 
         MyCrashHandler myCrashHandler = MyCrashHandler.getInstance();
         myCrashHandler.init();

@@ -113,7 +113,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdminName = new ComponentName(this, DeviceReceiver.class);
-        PhoneInterfaceUtil.disDeleteApp(mAdminName, this);//防卸载
         checkPermissons();
         initNFC();
         init();
