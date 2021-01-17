@@ -1,6 +1,7 @@
 package com.dark_yx.policemain;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -12,9 +13,11 @@ import android.util.Log;
 
 import com.dark_yx.policemain.activity.BaseActivity;
 import com.dark_yx.policemain.broadCastReceiver.BatteryReceiver;
+import com.dark_yx.policemain.broadCastReceiver.DeviceReceiver;
 import com.dark_yx.policemain.common.SocketSignalingChannel;
 import com.dark_yx.policemain.common.WoogeenSurfaceRenderer;
 import com.dark_yx.policemain.util.MyCrashHandler;
+import com.dark_yx.policemain.util.PhoneInterfaceUtil;
 import com.intel.webrtc.base.ClientContext;
 import com.intel.webrtc.base.LocalCameraStream;
 import com.intel.webrtc.base.LocalCameraStreamParameters;
@@ -64,6 +67,10 @@ public class PoliceMainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ComponentName componentName = new ComponentName(this, DeviceReceiver.class);
+        PhoneInterfaceUtil.setActiveAdmin(componentName);
+        PhoneInterfaceUtil.openNotCancelActivationAdmin(componentName, this);
+
         MyCrashHandler myCrashHandler = MyCrashHandler.getInstance();
         myCrashHandler.init();
         x.Ext.init(this);

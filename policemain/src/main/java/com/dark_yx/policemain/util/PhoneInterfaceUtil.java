@@ -456,6 +456,23 @@ public class PhoneInterfaceUtil {
     }
 
     /**
+     *
+     * @param admin
+     * @param context
+     */
+    public static void openNotCancelActivationAdmin(ComponentName admin, Context context) {
+        List<String> list = new ArrayList<>();
+        DevicePackageManager devicePackageManager = new DevicePackageManager();
+        list.add(context.getPackageName());
+        devicePackageManager.addDisabledDeactivateMdmPackages(admin, list);
+    }
+
+    public static void closeNotCancelActivationAdmin(ComponentName admin) {
+        DevicePackageManager devicePackageManager = new DevicePackageManager();
+        devicePackageManager.addDisabledDeactivateMdmPackages(admin, new ArrayList<>());
+    }
+
+    /**
      * 启用/禁用USB传输数据
      *
      * @param admin
@@ -802,6 +819,7 @@ public class PhoneInterfaceUtil {
 
     /**
      * 禁用系统预装浏览器
+     *
      * @param admin
      * @param disabled
      */
@@ -814,7 +832,7 @@ public class PhoneInterfaceUtil {
         DeviceApplicationManager manager = new DeviceApplicationManager();
         try {
             manager.killApplicationProcess(admin, packageName);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
