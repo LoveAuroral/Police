@@ -456,7 +456,6 @@ public class PhoneInterfaceUtil {
     }
 
     /**
-     *
      * @param admin
      * @param context
      */
@@ -838,6 +837,7 @@ public class PhoneInterfaceUtil {
     }
 
     public static void openInit(final ComponentName admin, String packageName, String className, Context context) {
+        FileUtil.writeMode(String.valueOf(1));
         new WhiteListUtil(context, true).getData();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(new Intent(context, ListenCallService.class));
@@ -872,6 +872,7 @@ public class PhoneInterfaceUtil {
     }
 
     public static void exitApp(Context context, ComponentName admin) {
+        FileUtil.writeMode(String.valueOf(2));
         context.stopService(new Intent(context, ListenCallService.class));
         PhoneInterfaceUtil.setSMSDisable(admin, false);
         PhoneInterfaceUtil.removeDisallowApp(admin);
