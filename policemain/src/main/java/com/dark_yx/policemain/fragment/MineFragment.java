@@ -159,7 +159,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rl_white:
                 Toast.makeText(context, "正在同步白名单", Toast.LENGTH_SHORT).show();
 //                PhoneInterfaceUtil.removeMdmNumberList(CommonMethod.getComponentName(getContext()));
-                new WhiteListUtil(context, true).getData();
+                new WhiteListUtil(context, true).getData2();
                 break;
             case R.id.rl_exit:
                 DataUtil.setLogin(context, false);

@@ -55,6 +55,11 @@ public class WhiteListUtil {
 
 
     public void getData() {
+//        getPublicPhoneList();
+//        getPrivatePhoneList();
+    }
+
+    public void getData2() {
         getPublicPhoneList();
         getPrivatePhoneList();
     }

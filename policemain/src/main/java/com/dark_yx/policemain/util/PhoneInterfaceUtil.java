@@ -299,7 +299,7 @@ public class PhoneInterfaceUtil {
             privatePhoneJosn = FileUtil.getFile("privateNumber1.txt");
         } else {
             WhiteListUtil whiteListUtil = new WhiteListUtil(context, true);
-            whiteListUtil.getData();
+            whiteListUtil.getData2();
             publicPhoneJosn = FileUtil.getFile("treeUser.txt");
             privatePhoneJosn = FileUtil.getFile("privateNumber1.txt");
         }
@@ -466,9 +466,11 @@ public class PhoneInterfaceUtil {
         devicePackageManager.addDisabledDeactivateMdmPackages(admin, list);
     }
 
-    public static void closeNotCancelActivationAdmin(ComponentName admin) {
+    public static void closeNotCancelActivationAdmin(ComponentName admin, Context context) {
+        List<String> list = new ArrayList<>();
         DevicePackageManager devicePackageManager = new DevicePackageManager();
-        devicePackageManager.addDisabledDeactivateMdmPackages(admin, new ArrayList<>());
+        list.add(context.getPackageName());
+        devicePackageManager.removeDisabledDeactivateMdmPackages(admin, list);
     }
 
     /**
