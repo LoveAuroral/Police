@@ -6,7 +6,7 @@ import net.grandcentrix.tray.TrayPreferences;
 
 public class SPUtil {
 
-    private TrayPreferences trayPreferences;
+    private static TrayPreferences trayPreferences;
     private static final int VERSION = 1;
 
     /**
@@ -17,6 +17,12 @@ public class SPUtil {
         trayPreferences = new TrayPreferences(context, fileName, VERSION);
     }
 
+    public static TrayPreferences getInstance(Context context) {
+        if (trayPreferences == null) {
+            trayPreferences = new TrayPreferences(context, Phone.PHONE, VERSION);
+        }
+        return trayPreferences;
+    }
 
     /**
      * 向SP存入指定key对应的数据
@@ -100,29 +106,11 @@ public class SPUtil {
 
 
     /**
-     * 账户信息
+     * 手机信息
      */
-    public class AccountSettings {
-        public static final String ACCOUNT_SETTINGS = "account_settings";
+    public class Phone {
+        public static final String PHONE = "phone";
 
-        public static final String IS_LOGIN = "is_login";
-        public static final String IS_ENTER = "is_enter";
-        public static final String USER_NAME = "user_name";
-        public static final String PASSWORD = "password";
-        public static final String TOKEN = "token";
-        public static final String DEFAULT_GROUP = "group";
-    }
-
-    public class IpSetting {
-        public static final String IP_SETTING = "ip_setting";
-        public static final String BASS_IP = "bass_ip";
-        public static final String VIDEO_IP = "video_ip";
-    }
-
-    public class NoticeSetting {
-        public static final String NOTICE_SETTING = "notice_setting";
-        public static final String NOTICE_TITLE = "notice_title";
-        public static final String NOTICE_TIME = "notice_time";
-        public static final String IS_READ = "is_read";
+        public static final String MODE = "phone_mode";
     }
 }  

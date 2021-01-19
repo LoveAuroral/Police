@@ -20,9 +20,9 @@ import com.dark_yx.policemain.activity.MainActivity;
 import com.dark_yx.policemain.login.view.LoginActivity;
 import com.dark_yx.policemain.util.CommonMethod;
 import com.dark_yx.policemain.util.PhoneInterfaceUtil;
+import com.dark_yx.policemain.util.SPUtil;
 import com.dark_yx.policemaincommon.Models.User;
 import com.dark_yx.policemaincommon.Util.DataUtil;
-import com.dark_yx.policemaincommon.Util.FileUtil;
 
 import org.xutils.common.util.LogUtil;
 
@@ -34,7 +34,7 @@ public class BootBroadCastReceiver extends BroadcastReceiver {
     private static final String TAG = "BootBroadCastReceiver";
 
     private ComponentName admin = null;
-    private String mode;
+    private int mode;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,9 +46,9 @@ public class BootBroadCastReceiver extends BroadcastReceiver {
 //            Intent bootIntent = new Intent(context, LoginActivity.class);
 //            bootIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            context.startActivity(bootIntent);
-            mode = FileUtil.readMode();
+            mode = SPUtil.getInstance(context).getInt(SPUtil.Phone.MODE, 2);
 ////            Toast.makeText(context, "MODE=" + mode, Toast.LENGTH_SHORT).show();
-            if (!mode.equals("2")) {
+            if (mode != 2) {
 //                /* 启动当前应用程序 */
                 DataUtil.setEnter(context, true);
                 CommonMethod.sendStatus(true, context);

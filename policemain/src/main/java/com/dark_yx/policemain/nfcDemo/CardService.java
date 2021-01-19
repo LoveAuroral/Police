@@ -15,10 +15,10 @@ import com.dark_yx.policemain.activity.MainActivity;
 import com.dark_yx.policemain.broadCastReceiver.DeviceReceiver;
 import com.dark_yx.policemain.util.CommonMethod;
 import com.dark_yx.policemain.util.PhoneInterfaceUtil;
+import com.dark_yx.policemain.util.SPUtil;
 import com.dark_yx.policemain.util.WhiteListUtil;
 import com.dark_yx.policemaincommon.Models.User;
 import com.dark_yx.policemaincommon.Util.DataUtil;
-import com.dark_yx.policemaincommon.Util.FileUtil;
 import com.newabel.nfcsdk.NfcHelper;
 
 import org.xutils.common.util.LogUtil;
@@ -73,9 +73,7 @@ public class CardService extends HostApduService implements NfcHelper.NfcCallBac
 
     public void openApp(final Context context, int mode, int state) {
         LogUtil.d("data is " + mode + "" + state + "");
-        File file = new File(Environment.getExternalStorageDirectory() + "/Police/MODE.txt");
-        FileUtil.deleteFile(file);
-        FileUtil.writeMode(String.valueOf(mode));
+        SPUtil.getInstance(context).put(SPUtil.Phone.MODE, mode);
         ComponentName admin = new ComponentName(context, DeviceReceiver.class);
         if (state == 0) {
             if (mode == 2) {
