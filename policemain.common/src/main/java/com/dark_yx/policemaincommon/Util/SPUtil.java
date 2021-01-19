@@ -1,12 +1,19 @@
 package com.dark_yx.policemaincommon.Util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.provider.Settings;
+import android.text.TextUtils;
 
 import net.grandcentrix.tray.TrayPreferences;
+
+import java.lang.reflect.Method;
+import java.util.UUID;
 
 public class SPUtil {
 
     private TrayPreferences trayPreferences;
+    private static TrayPreferences trayPreferences2;
     private static final int VERSION = 1;
 
     /**
@@ -17,6 +24,50 @@ public class SPUtil {
         trayPreferences = new TrayPreferences(context, fileName, VERSION);
     }
 
+    public static TrayPreferences getInstance(Context context) {
+        if (trayPreferences2 == null) {
+            trayPreferences2 = new TrayPreferences(context, AccountSettings.ACCOUNT_SETTINGS, VERSION);
+        }
+        return trayPreferences2;
+    }
+
+
+    @SuppressLint("PrivateApi")
+    public static void setDeviceId(Context context) {
+        String id;
+        Method systemProperties;
+        String ret;
+        try {
+            systemProperties = Class.forName("android.os.SystemProperties").getMethod("get", String.class);
+            ret = (String) systemProperties.invoke(null, "ro.boot.serialno");
+            if (TextUtils.isEmpty(ret)) {
+                ret = "";
+            }
+        } catch (Exception e) {
+            ret = null;
+        }
+        String deviceId = ret;
+        if (TextUtils.isEmpty(deviceId)) {
+            deviceId = Settings.System.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            deviceId = new UUID(deviceId.hashCode(), ((long) deviceId.hashCode()) << 32).toString().replace("-", "");
+        }
+        if (deviceId == null) {
+            id = "";
+        } else {
+            id = deviceId.toUpperCase();
+        }
+        trayPreferences2.put(AccountSettings.DEVICE_ID, id);
+    }
+
+    public static String getDeviceId(Context context) {
+        getInstance(context);
+        String id = trayPreferences2.getString(AccountSettings.DEVICE_ID, null);
+        if (id == null) {
+            setDeviceId(context);
+            id = trayPreferences2.getString(AccountSettings.DEVICE_ID, "");
+        }
+        return id;
+    }
 
     /**
      * 向SP存入指定key对应的数据
@@ -110,6 +161,7 @@ public class SPUtil {
         public static final String PASSWORD = "password";
         public static final String TOKEN = "token";
         public static final String DEFAULT_GROUP = "group";
+        public static final String DEVICE_ID = "device_id";
     }
 
     public class IpSetting {

@@ -36,12 +36,7 @@ public class SystemInfo {
     // 获取IEMI
     public static String GetIMEI(Context context) {
         if (IMEI == null) {
-            tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);//手机服务
-            try {
-                IMEI = tm.getDeviceId();
-            } catch (Exception e) {
-                IMEI = "";
-            }
+            IMEI = SPUtil.getDeviceId(context);
         }
         return IMEI;
     }
