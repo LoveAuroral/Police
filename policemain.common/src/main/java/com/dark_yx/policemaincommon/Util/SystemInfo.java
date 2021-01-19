@@ -40,7 +40,7 @@ public class SystemInfo {
             try {
                 IMEI = tm.getDeviceId();
             } catch (Exception e) {
-                IMEI = "";
+                IMEI = getMyUUID();
             }
         }
         return IMEI;
